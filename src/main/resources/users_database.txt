@@ -1,5 +1,0 @@
-
-ffee8918-f36e-4220-8899-ce5a454eb7c7,jhon,1234,user@gmail.com,true
-84721cae-1257-4182-8299-e7fdcceb3e41,jhon,1234,user@gmail.com,true
-6cdb40fe-a36b-4ea8-848e-b2877061e031,jhon,1234,user@gmail.com,true
-0ad0e489-ddd0-4d36-a306-53cd1d2c7ae8,jhon,1234,user@gmail.com,true
