@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepository {
 
-  private final String FILE_PATH = "/Users/jhon.tobarg/Downloads/registro-usuarios-api/src/main/resources/users_database.txt";
+  private final String FILE_PATH = "/Users/jhon.tobarg/Downloads/users-api/src/main/resources/users_database.txt";
   //ACCEDER A UN ARCHIVO TXT PARA PERSISTIR LA INFORMACION DE LOS USUARIOS, UN USUARIO POR LINEA
   // Y CADA PROPIEDAD SEPARA POR COMA
 
