@@ -1,22 +1,46 @@
 package com.example.eafit.repositories;
 
 import com.example.eafit.model.User;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository {
 
-  private final String FILE_PATH = "/Users/jhon.tobarg/Downloads/users-api/src/main/resources/users_database.txt";
+  private final String FILE_PATH = "/Users/jhon.tobarg/Documents/EAFIT/users-api/src/main/resources/users_database.txt";
   //ACCEDER A UN ARCHIVO TXT PARA PERSISTIR LA INFORMACION DE LOS USUARIOS, UN USUARIO POR LINEA
   // Y CADA PROPIEDAD SEPARA POR COMA
 
-  /**
-   * @param user This is the user to be persisted in the database
-   * @return
-   */
+
+  public List<User> getAllUsersFromDatabase(){
+    try {
+      List<User> users = new ArrayList<>();
+      BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+      String line;
+      while((line = reader.readLine()) != null){
+        String[] fields = line.split(",");
+        User user = new User();
+        user.setId(fields[0]);
+        user.setUsername(fields[1]);
+        user.setPassword(fields[2]);
+        user.setEmail(fields[3]);
+        user.setActive(Boolean.valueOf(fields[4]));
+        users.add(user);
+      }
+      return users;
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
   public User saveUser(User user) {
     try {
       BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));

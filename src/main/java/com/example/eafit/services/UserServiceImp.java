@@ -18,7 +18,6 @@ public class UserServiceImp implements UserService {
   //logica de negocio, validaciones, restricciones, excepciones.
   @Override
   public void createUser(User user) throws BusinessException {
-    //QUE NO EXISTA EL USUARIO CON EL MISMO ID O CON EL MISMO CORREO
     //La longitud y caracteres especiales de la contraseña. (Opcional)
     if(user.getUsername() == null || user.getUsername().isBlank()){
       throw new BusinessException("Username is not valid");
@@ -29,6 +28,11 @@ public class UserServiceImp implements UserService {
     if(user.getPassword() == null || user.getPassword().isBlank()){
       throw new BusinessException("Password is not valid");
     }
+    if(userRepository.getAllUsersFromDatabase().stream().filter(x->x.getEmail().equalsIgnoreCase(user.getEmail())).toList().isEmpty()){
+
+    }
+    //QUE NO EXISTA EL USUARIO CON EL MISMO CORREO (NECESITAMOS UN METODO QUE NOS DEVUELVA TODOS LOS USUARIOS O CORREOS DE USUARIOS YA CREADOS
+    //EN LA BASE DE DATOS.
     userRepository.saveUser(user);
   }
 }

@@ -20,7 +20,7 @@ public class UserController {
     this.userService = userService;
   }
   @PostMapping
-  public void crearUsuario(User user) throws BusinessException {
+  public void crearUsuario(@RequestBody User user) throws BusinessException {
     userService.createUser(user);
   }
 }
