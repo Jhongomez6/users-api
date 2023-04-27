@@ -26,11 +26,8 @@ public class UserRepository {
       String line;
       while((line = reader.readLine()) != null){
         String[] fields = line.split(",");
-        User user = new User();
+        User user = new User(fields[1], fields[2], fields[3]);
         user.setId(fields[0]);
-        user.setUsername(fields[1]);
-        user.setPassword(fields[2]);
-        user.setEmail(fields[3]);
         user.setActive(Boolean.valueOf(fields[4]));
         users.add(user);
       }

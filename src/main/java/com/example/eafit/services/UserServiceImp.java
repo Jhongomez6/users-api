@@ -3,6 +3,7 @@ package com.example.eafit.services;
 import com.example.eafit.model.User;
 import com.example.eafit.model.exceptions.BusinessException;
 import com.example.eafit.repositories.UserRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,18 @@ public class UserServiceImp implements UserService {
     if(user.getPassword() == null || user.getPassword().isBlank()){
       throw new BusinessException("Password is not valid");
     }
-    if(userRepository.getAllUsersFromDatabase().stream().filter(x->x.getEmail().equalsIgnoreCase(user.getEmail())).toList().isEmpty()){
-
-    }
     //QUE NO EXISTA EL USUARIO CON EL MISMO CORREO (NECESITAMOS UN METODO QUE NOS DEVUELVA TODOS LOS USUARIOS O CORREOS DE USUARIOS YA CREADOS
     //EN LA BASE DE DATOS.
+    validateEmail(user);
     userRepository.saveUser(user);
+  }
+
+  private void validateEmail(User user) throws BusinessException {
+    List<User> databaseUsers = userRepository.getAllUsersFromDatabase();
+    for(User databaseUser : databaseUsers) {
+      if(databaseUser.getEmail().equalsIgnoreCase(user.getEmail())){
+        throw new BusinessException("Email already exists");
+      }
+    }
   }
 }

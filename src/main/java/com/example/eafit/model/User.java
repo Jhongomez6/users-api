@@ -11,9 +11,6 @@ public class User {
 
   private boolean isActive;
 
-  public User(){
-
-  }
 
   public User(String username, String password, String email) {
     this.id = UUID.randomUUID().toString();
@@ -22,7 +19,7 @@ public class User {
     this.email = email;
     this.isActive = true;
   }
-  
+
   public String getId() {
     return id;
   }

@@ -1,2 +1,1 @@
 b4df02bf-6e23-4379-b143-cbc5ad3c217a,jhon,1234,jhon@email.com,true
-null,jhon,1234,jhon@email.com,false
