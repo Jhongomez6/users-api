@@ -5,5 +5,7 @@ import com.example.eafit.model.exceptions.BusinessException;
 
 public interface UserService {
 
-  void createUser(User user) throws BusinessException;
+  User createUser(User user) throws BusinessException;
+
+  User getUser(String email);
 }

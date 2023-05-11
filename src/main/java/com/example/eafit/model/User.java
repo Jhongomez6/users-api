@@ -1,24 +1,32 @@
 package com.example.eafit.model;
 
-import java.util.UUID;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "users")
 public class User {
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private String id;
+  @Column(name = "username")
   private String username;
+  @Column(name= "password")
   private String password;
-
+  @Column(name= "name")
+  private String name;
+  @Column(name= "email")
   private String email;
+  @Column(name= "isActive")
+  private boolean isActive = true;
 
-  private boolean isActive;
-
-
-  public User(String username, String password, String email) {
-    this.id = UUID.randomUUID().toString();
-    this.username = username;
-    this.password = password;
-    this.email = email;
-    this.isActive = true;
-  }
+  @Column(name = "created_by")
+  private String createdBy = "SYSTEM";
 
   public String getId() {
     return id;
@@ -58,5 +66,21 @@ public class User {
 
   public void setActive(boolean active) {
     isActive = active;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
   }
 }

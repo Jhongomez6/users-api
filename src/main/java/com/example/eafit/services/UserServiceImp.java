@@ -18,7 +18,7 @@ public class UserServiceImp implements UserService {
   }
   //logica de negocio, validaciones, restricciones, excepciones.
   @Override
-  public void createUser(User user) throws BusinessException {
+  public User createUser(User user) throws BusinessException {
     //La longitud y caracteres especiales de la contraseña. (Opcional)
     if(user.getUsername() == null || user.getUsername().isBlank()){
       throw new BusinessException("Username is not valid");
@@ -32,11 +32,17 @@ public class UserServiceImp implements UserService {
     //QUE NO EXISTA EL USUARIO CON EL MISMO CORREO (NECESITAMOS UN METODO QUE NOS DEVUELVA TODOS LOS USUARIOS O CORREOS DE USUARIOS YA CREADOS
     //EN LA BASE DE DATOS.
     validateEmail(user);
-    userRepository.saveUser(user);
+    return userRepository.save(user);
+  }
+
+  public User getUser(String email) {
+    List<User> allUsersFromDatabase = userRepository.findAll();
+    User userFound = allUsersFromDatabase.stream().filter(user -> user.getEmail().equalsIgnoreCase(email)).findAny().get();
+    return userFound;
   }
 
   private void validateEmail(User user) throws BusinessException {
-    List<User> databaseUsers = userRepository.getAllUsersFromDatabase();
+    List<User> databaseUsers = userRepository.findAll();
     for(User databaseUser : databaseUsers) {
       if(databaseUser.getEmail().equalsIgnoreCase(user.getEmail())){
         throw new BusinessException("Email already exists");

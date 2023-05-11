@@ -24,18 +24,21 @@ public class UserController {
     this.userService = userService;
   }
   @PostMapping
-  //@PathVariable
-  public void crearUsuario(@RequestBody User user) {
+  public User crearUsuario(@RequestBody User user) {
     try {
-      userService.createUser(user);
+      return userService.createUser(user);
     } catch (BusinessException e) {
       //AQUI DEBEMOS RESPONDER UN CODIGO 400 + EL MENSAJE DE LA EXCEPTION.
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
     }
   }
 
-  @GetMapping("/{}")
+  @GetMapping("/{email}")
   public User getUser(@PathVariable String email){
-    return null;
+    User userFound = userService.getUser(email);
+    if(userFound == null){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+    }
+    return userFound;
   }
 }
