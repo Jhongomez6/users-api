@@ -7,5 +7,5 @@ public interface UserService {
 
   User createUser(User user) throws BusinessException;
 
-  User getUser(String email);
+  User getUser(String email) throws BusinessException;
 }

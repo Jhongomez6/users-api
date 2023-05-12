@@ -35,10 +35,11 @@ public class UserServiceImp implements UserService {
     return userRepository.save(user);
   }
 
-  public User getUser(String email) {
-    List<User> allUsersFromDatabase = userRepository.findAll();
-    User userFound = allUsersFromDatabase.stream().filter(user -> user.getEmail().equalsIgnoreCase(email)).findAny().get();
-    return userFound;
+  public User getUser(String email) throws BusinessException {
+    if(email == null || email.isBlank()) {
+      throw new BusinessException("Email is not valid");
+    }
+    return userRepository.findByEmail(email);
   }
 
   private void validateEmail(User user) throws BusinessException {

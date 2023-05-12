@@ -34,7 +34,7 @@ public class UserController {
   }
 
   @GetMapping("/{email}")
-  public User getUser(@PathVariable String email){
+  public User getUser(@PathVariable String email) throws BusinessException {
     User userFound = userService.getUser(email);
     if(userFound == null){
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
