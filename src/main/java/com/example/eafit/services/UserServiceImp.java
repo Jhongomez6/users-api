@@ -4,6 +4,8 @@ import com.example.eafit.model.User;
 import com.example.eafit.model.exceptions.BusinessException;
 import com.example.eafit.repositories.UserRepository;
 import java.util.List;
+import java.util.Optional;
+import org.hibernate.query.spi.QueryOptionsAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,21 @@ public class UserServiceImp implements UserService {
     }
     return userRepository.findByEmail(email);
   }
+
+
+  public void updateUser(Long userId, boolean estado) throws BusinessException {
+    Optional<User> userOptional = userRepository.findById(userId);
+    if(userOptional.isEmpty()){
+      throw new BusinessException("User with ID" + userId + "doesn't exits in the system");
+    }
+    User user = userOptional.get();
+    user.setActive(estado);
+    userRepository.save(user);
+  }
+
+
+
+
 
   private void validateEmail(User user) throws BusinessException {
     List<User> databaseUsers = userRepository.findAll();
