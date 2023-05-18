@@ -44,7 +44,6 @@ public class UserServiceImp implements UserService {
     return userRepository.findByEmail(email);
   }
 
-
   public void updateUser(Long userId, boolean estado) throws BusinessException {
     Optional<User> userOptional = userRepository.findById(userId);
     if(userOptional.isEmpty()){
